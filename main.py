@@ -1,14 +1,11 @@
-
+import time
 import json
 import pandas as pd
-import streamlit as st
-import streamlit.components.v1 as components
-from predict import predict_page
-# secciones
-page = st.sidebar.selectbox("Selecciona una página", ["Comentario", "Grupo de comentarios"])
+import streamlit as st# secciones
+page = st.sidebar.selectbox("Selecciona una página", ["Comentarios", "comentariosss"])
 
 # si la sección es "Visualización de Datos"
-if page == "Comentario":
+if page == "Comentarios":
     # CSS
     st.markdown(
     """
@@ -29,32 +26,56 @@ if page == "Comentario":
 
     # Título de la app
     st.write("""
-    <div class="scale-in-center" style="display: flex; justify-content: center; align-items: center; margin: 0px 0px 30px 0px;">
-        <h1 style="font-size: 45px; text-align: center; border-bottom: 1px solid white;">Predecir comentarios toxicos</h1>
+    <div style="display: flex; justify-content: center; align-items: center; margin: 0px 0px 30px 0px;">
+        <h1 style="font-size: 45px; text-align: center; border-bottom: 1px solid white;">Predict text</h1>
     </div>""", unsafe_allow_html=True)
 
     # IMAGE
-    st.write("""
-    <div style="display: flex; justify-content: center; align-items: center; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; padding: 10px;">
-        <img src="https://media3.giphy.com/media/aKFw4ifPBEuxq/giphy.gif?cid=ecf05e47re5nkujjpiy3q4gxtk0albw09ybdql92b67012vg&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="aereolina" width="700" style="margin: 10px 0px; border-radius: 6px;">
-    </div>""", unsafe_allow_html=True)
+    # st.write("""
+    # <div style="display: flex; justify-content: center; align-items: center; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; padding: 10px;">
+    #     <img src="https://i.pinimg.com/originals/b9/b8/1a/b9b81ab0e549a0ef6bbd9616e32031d5.gif" alt="aereolina" width="700" style="margin: 10px 0px; border-radius: 6px;">
+    # </div>""", unsafe_allow_html=True)
 
-    # textarea 
-    value_contents = st.text_area("", value="", height=None, max_chars=None, key=None, help=None, on_change=None, args=None, placeholder="Inserta un comentario...", disabled=False, label_visibility="visible")
-
-
-
-
-
-    # si la sección es "Predicción"
-    if st.button("Nivel de satisfacción"):
-        predict_page(value_contents)
-  
-    # si la sección es "Visualización de Datos"
-elif  page == "Grupo de comentarios":  
-    st.write("""
-    <div class="scale-in-center" style="display: flex; justify-content: center; align-items: center; margin: 0px 0px 30px 0px;">
-        <h1 style="font-size: 45px; text-align: center; border-bottom: 1px solid white;">hola bomdia</h1>
-    </div>""", unsafe_allow_html=True)
+    # # FIRST TEXT
+    # st.write("""
+    # <div style="margin: 10px 0px; display: flex; justify-content: center; align-items: center; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; padding: 10px;">
+    #     <p style="font-size: 16px;">F5 Airlines lleva un tiempo recogiendo datos relativos a la satisfacción de los clientes. Esos datos han sido utilizados en general, pero con poco éxito, para ser analizados a mano en busca de los motivos y de un plan de actuación futuro para evitar este tipo de casos.</p>
+    # </div>""", unsafe_allow_html=True)
 
 
+
+
+    # button created
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Youtube", "Facebook", "Twitter", "Instagram", "TikTok"])
+
+    with tab1:
+        try:
+            exec(open("./Scrapper/Youtube.py").read())
+        except Exception as e:
+            st.error(f"Error al cargar los gráficos: {e}")
+    with tab2:
+        try:    
+            exec(open("./Scrapper/Facebook.py").read())
+        except Exception as e:
+            st.error(f"Error al cargar los gráficos: {e}")
+    with tab3:
+        try:
+            st.write("seccion de datos")
+            exec(open("./Scrapper/Twitter.py").read())
+        except Exception as e:
+            st.error(f"Error al cargar los gráficos: {e}")
+    with tab4:
+        try:
+            st.write("seccion de datosasdasd")
+            # exec(open("./ML.py").read())
+        except Exception as e:
+            st.error(f"Error al cargar los gráficos: {e}")
+    with tab5:
+        try:
+            st.write("seccion de datosasdasd")
+            # exec(open("./ML.py").read())
+        except Exception as e:
+            st.error(f"Error al cargar los gráficos: {e}")
+
+else:  
+    st.write("hola como estamos todos")
