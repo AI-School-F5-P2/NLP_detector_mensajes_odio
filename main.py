@@ -1,11 +1,36 @@
-import time
-import json
-import pandas as pd
-import streamlit as st# secciones
-page = st.sidebar.selectbox("Selecciona una página", ["Comentarios", "comentariosss"])
+import streamlit as st 
+from Scrapper.predict import predict_page
+from Scrapper.Youtube import youtube_page
 
+
+page = st.sidebar.selectbox("Selecciona una página", ["Predict-Comments", "Scrapping"])
 # si la sección es "Visualización de Datos"
-if page == "Comentarios":
+
+
+if page == "Predict-Comments":
+    # Título de la app
+    st.write("""
+    <div style="display: flex; justify-content: center; align-items: center; margin: 0px 0px 30px 0px;">
+        <h1 style="font-size: 45px; text-align: center; border-bottom: 1px solid red;">Youtube Predict Comments</h1>
+    </div>""", unsafe_allow_html=True)
+
+    # IMAGE
+    st.write("""
+        <div style="display: flex; justify-content: center; align-items: center; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; padding: 10px;">
+            <img src="https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_download_software_1/H2x1_NSwitchDS_YouTube_image1280w.jpg" alt="aereolina" width="700" style="margin: 10px 0px; border-radius: 6px;">
+        </div>""", unsafe_allow_html=True)
+
+
+
+    # label + input
+    value_comment = st.text_area("", height=25, placeholder="Inserte un comentario...", key="comment_preddict")
+    # button created
+    button_preddict = st.button("Predict", key="predict_button",  type="primary", use_container_width=True)
+
+    if button_preddict:
+        predict_page(value_comment)
+
+elif page == "Scrapping":
     # CSS
     st.markdown(
     """
@@ -24,58 +49,25 @@ if page == "Comentarios":
         unsafe_allow_html=True
     )
 
-    # Título de la app
+        # TITULO
     st.write("""
-    <div style="display: flex; justify-content: center; align-items: center; margin: 0px 0px 30px 0px;">
-        <h1 style="font-size: 45px; text-align: center; border-bottom: 1px solid white;">Predict text</h1>
-    </div>""", unsafe_allow_html=True)
+            <div style="display: flex; justify-content: center; align-items: center; margin: 0px 0px 30px 0px;">
+                <h1 style="font-size: 45px; text-align: center; border-bottom: 1px solid white;">Youtube</h1>
+            </div>""", unsafe_allow_html=True)
 
     # IMAGE
-    # st.write("""
-    # <div style="display: flex; justify-content: center; align-items: center; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; padding: 10px;">
-    #     <img src="https://i.pinimg.com/originals/b9/b8/1a/b9b81ab0e549a0ef6bbd9616e32031d5.gif" alt="aereolina" width="700" style="margin: 10px 0px; border-radius: 6px;">
-    # </div>""", unsafe_allow_html=True)
+    st.write("""
+            <div style="display: flex; justify-content: center; align-items: center; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; padding: 10px;">
+                <img src="https://media2.giphy.com/media/LP62GF82YvcuOuFJRD/giphy.gif?cid=ecf05e47hsutrc15t05in0wrr7a9veckswprb9xikrzm8a6f&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="aereolina" width="300" style="margin: 10px 0px; border-radius: 6px;">
+            </div>""", unsafe_allow_html=True)
 
-    # # FIRST TEXT
-    # st.write("""
-    # <div style="margin: 10px 0px; display: flex; justify-content: center; align-items: center; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; padding: 10px;">
-    #     <p style="font-size: 16px;">F5 Airlines lleva un tiempo recogiendo datos relativos a la satisfacción de los clientes. Esos datos han sido utilizados en general, pero con poco éxito, para ser analizados a mano en busca de los motivos y de un plan de actuación futuro para evitar este tipo de casos.</p>
-    # </div>""", unsafe_allow_html=True)
+    # TEXT AREA
+    value = st.text_area("", height=25, placeholder="Inserta un link de un video de youtube", key="youtube")
 
-
-
-
-    # button created
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Youtube", "Facebook", "Twitter", "Instagram", "TikTok"])
-
-    with tab1:
+    # BUTTON centramos el button
+    button = st.button("Scrappear", key="youtube_button", type="primary", use_container_width=True)
+    if button:
         try:
-            exec(open("./Scrapper/Youtube.py").read())
-        except Exception as e:
-            st.error(f"Error al cargar los gráficos: {e}")
-    with tab2:
-        try:    
-            exec(open("./Scrapper/Facebook.py").read())
-        except Exception as e:
-            st.error(f"Error al cargar los gráficos: {e}")
-    with tab3:
-        try:
-            st.write("seccion de datos")
-            exec(open("./Scrapper/Twitter.py").read())
-        except Exception as e:
-            st.error(f"Error al cargar los gráficos: {e}")
-    with tab4:
-        try:
-            st.write("seccion de datosasdasd")
-            # exec(open("./ML.py").read())
-        except Exception as e:
-            st.error(f"Error al cargar los gráficos: {e}")
-    with tab5:
-        try:
-            st.write("seccion de datosasdasd")
-            # exec(open("./ML.py").read())
-        except Exception as e:
-            st.error(f"Error al cargar los gráficos: {e}")
-
-else:  
-    st.write("hola como estamos todos")
+            youtube_page(value)
+        except:
+            st.write("Inserta un link de un video de youtube")
