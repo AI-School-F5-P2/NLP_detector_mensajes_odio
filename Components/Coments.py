@@ -7,8 +7,6 @@ def convert_time(time):
     time = time.split("T")
     time = time[0].split("-")
     time = time[2] + "-" + time[1] + "-" + time[0]
-  
-
     return time
 
 def Card_New(item_json, result):
@@ -17,20 +15,23 @@ def Card_New(item_json, result):
     text = item_json['snippet']['topLevelComment']['snippet']['textDisplay']
     image = item_json['snippet']['topLevelComment']['snippet']['authorProfileImageUrl']
     result_value = result[0]['label']
+    accuracy = result[0]['score']
+    accuracy = round(accuracy, 2) * 100
     time = item_json['snippet']['topLevelComment']['snippet']['publishedAt']
     time = convert_time(time)
+    link_video = item_json['snippet']['topLevelComment']['snippet']['videoId']
+    link_canal_persona = item_json['snippet']['topLevelComment']['snippet']['authorChannelUrl']
 
     st.markdown(
         """
         <style>  
         .section_name {
-           border: 1px solid white;
             width: 100%;
             height: 100%;
             padding: 11px;
-            border-radius: 12px;
-            background: #ffffff1c;
-            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+            border-radius: 5px;
+            background: #ffffffcf !important;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
             margin-top: 21px;
         }
         .Card-comment {
@@ -54,7 +55,7 @@ def Card_New(item_json, result):
         }
         .name_username {
             flex-direction: row;
-            height: 40%;
+            height: auto !important;
             display: flex;
             align-items: flex-end;
         }
@@ -64,15 +65,14 @@ def Card_New(item_json, result):
             font-size: 20px;    
         }
         .from_text {
-            background: #80808047;
             border-radius: 13px !important;
             padding: 0px 10px !important;
             margin: 0px !important;
-            font-size: 20px;   
+            font-size: 10px;   
             color: #9fa4aa; 
         }
         .prediction_positive {
-            width: 133px;
+            width: 150px;
             height: 20px;
             position: absolute;
             right: 14px;
@@ -83,7 +83,7 @@ def Card_New(item_json, result):
             justify-content: center;
         }
         .prediction_negative {
-            width: 133px;
+            width: 150px;
             height: 20px;
             position: absolute;
             right: 14px;
@@ -100,15 +100,19 @@ def Card_New(item_json, result):
     f"""
         <section class="section_name">
             <div class="prediction">
-                <span class="{"prediction_positive" if result_value == "POSITIVE" else "prediction_negative"}">{result_value}</span>
+                <span class="{"prediction_positive" if result_value == "POSITIVE" else "prediction_negative"}">{result_value} : {accuracy} %</span>
             </div>
             <div class="Card-comment">
                 <div class="img-content">
-                    <img src="{image}" alt="imagen" class="image_person">  
+                    <a href="{link_canal_persona}" target="_blank" style="cursor: pointer; border: none; ">
+                    <img src="{image}" alt="imagen" class="image_person">
+                    </a>
                 </div>
                 <div class="content_text">
                     <div class="name_username">
+                        <a href="https://www.youtube.com/watch?v={link_video}" target="_blank" style="cursor: pointer; border: none; ">
                         <p class="text_name_value" >  {name}</p>
+                        </a>
                         <p class="from_text">{time}</p>
                     </div>
                     <div class="text">
