@@ -18,9 +18,8 @@ def predict_page(value_contents):
     if value_contents:
         # Muestra un spinner mientras se realiza la predicción
         with st.spinner("Prediciendo..."):
-            # result = predict_comments(value_contents)
-            result = predict_comments_v2(value_contents)
-            st.write(result)
+            result = predict_comments(value_contents)
+            # result = predict_comments_v2(value_contents)
             if result:
                 CardComplement(value_contents, result[0]["score"], result[0]["label"])
             else:
