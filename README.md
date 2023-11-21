@@ -1,7 +1,7 @@
 <!-- README.md -->
 
 <p align="center">
-  <img width="400"  src="https://media2.giphy.com/media/13Nc3xlO1kGg3S/200w.webp?cid=ecf05e47296jnhengboeapz7plmiyee13x7o8ai7al9p6qbf&ep=v1_gifs_search&rid=200w.webp&ct=g" alt="Texto alternativo">
+  <img width="400"  src="https://cdn.pixabay.com/photo/2020/11/01/03/08/youtube-5702765_960_720.jpg" alt="Texto alternativo">
 </p>
 
 
@@ -67,5 +67,7 @@ Streamlit run main.py
 ```
 
 <p align="center">
-  <iframe width="560" height="315" src="https://www.youtube.com/watch?v=jmb8q0X2JTc&ab_channel=AlexisVenegas" frameborder="0" allowfullscreen></iframe>
+  <a href="https://www.youtube.com/watch?v=jmb8q0X2JTc&ab_channel=AlexisVenegas" target="_blank">
+    <img src="https://img.youtube.com/vi/jmb8q0X2JTc/0.jpg" alt="Texto alternativo para la miniatura del video" width="560" height="315">
+  </a>
 </p>
