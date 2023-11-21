@@ -1,7 +1,7 @@
 <!-- README.md -->
 
 <p align="center">
-  <img width="400" height="400" src="https://media2.giphy.com/media/13Nc3xlO1kGg3S/200w.webp?cid=ecf05e47296jnhengboeapz7plmiyee13x7o8ai7al9p6qbf&ep=v1_gifs_search&rid=200w.webp&ct=g" alt="Texto alternativo">
+  <img width="400"  src="https://media2.giphy.com/media/13Nc3xlO1kGg3S/200w.webp?cid=ecf05e47296jnhengboeapz7plmiyee13x7o8ai7al9p6qbf&ep=v1_gifs_search&rid=200w.webp&ct=g" alt="Texto alternativo">
 </p>
 
 
@@ -26,10 +26,10 @@ Hemos optado por desarrollar un modelo de procesamiento del lenguaje natural (NL
    - Usaremos técnicas de vectorización, como TF-IDF, para convertir los mensajes de texto en vectores numéricos que el modelo pueda entender.
 
 3. **Modelo de Aprendizaje Automático:**
-   - Emplearemos modelos de clasificación de texto.
-   - Con aumento de datos logramos obtener un resultado.
+   - Emplearemos modelos de Maching learning para clasificación de texto.
+   - Con aumento de datos logramos obtener un mejor resultado.
 
-4. **Aplicacion que  que productivice el modelo (una interfaz o API o scraper o lo que se os ocurra, que permita a un usuario consultar si un mensaje  es o no de odio)**
+4. **Aplicacion  que productivice el modelo (una interfaz o API o scraper o lo que se os ocurra, que permita a un usuario consultar si un mensaje  es o no de odio)**
    - Emplearemos la herramienta Streamlit para desarrollar una aplicación que detecte si un comentario es tóxico o no.
    - Consumiremos la API de YouTube v3 para predecir de manera masiva los comentarios de un video en particular.
 
