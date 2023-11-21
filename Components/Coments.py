@@ -105,7 +105,7 @@ def Card_New(item_json, result):
             <div class="Card-comment">
                 <div class="img-content">
                     <a href="{link_canal_persona}" target="_blank" style="cursor: pointer; border: none; ">
-                    <img src="{image}" alt="imagen" class="image_person">
+                        <img src="{image}" alt="imagen" class="image_person">
                     </a>
                 </div>
                 <div class="content_text">

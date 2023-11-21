@@ -50,17 +50,16 @@ def insert_data(conn, data):
     try:
         cursor = conn.cursor()
         query = """
-        INSERT INTO data_comments (Texto, IsToxic) 
-        VALUES (%s, %s)
+        INSERT INTO data_comments (Texto, IsToxic, youtube_id) 
+        VALUES (%s, %s, %s)
         """
 
         texto_value = data.get("Texto", "")  # Obtener el valor de "Texto" o un valor predeterminado en caso de que no exista
         is_toxic_value = data.get("IsToxic", "")  # Obtener el valor de "IsToxic" o un valor predeterminado en caso de que no exista
+        youtube_id_value = data.get("youtube_id", "")  # Obtener el valor de "youtube_id" o un valor predeterminado en caso de que no exista
 
-        print("Texto:", texto_value)
-        print("IsToxic:", is_toxic_value)
 
-        cursor.execute(query, (texto_value, is_toxic_value))
+        cursor.execute(query, (texto_value, is_toxic_value, youtube_id_value))
         conn.commit()
     except pymysql.Error as e:
         st.error(f"Error al insertar los datos: {e}")

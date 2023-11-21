@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 def init() -> None:
     st.set_page_config(
     page_title="Youtube Predict",
@@ -26,12 +27,18 @@ def init() -> None:
             background-attachment: fixed !important;
             background: {background_gradient} !important;
         }}
+        .st-emotion-cache-1v0mbdj > img {{
+            margin-top: 60px !important;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+            border-radius: 15px;
+        }}
+        .st-emotion-cache-16txtl3 {{
+            text-align: center !important;
+        }}
     </style>
     """,
     unsafe_allow_html=True
     )
-
-
 
 def init_predict_comments(link_video: str) -> None:
 
@@ -97,3 +104,6 @@ def init_scrapping_css():
 def change_video(link_video: str) -> None:
     init_predict_comments(link_video)
     # st.write(f'<iframe width="560" height="315" src="https://www.youtube.com/embed/{link_video}" frameborder="0" allowfullscreen></iframe>', unsafe_allow_html=True)  
+
+
+SIDE_INFO = "Puedes usar nuestro modelo de inteligencia artificial para detectar y combatir el discurso de odio en línea."

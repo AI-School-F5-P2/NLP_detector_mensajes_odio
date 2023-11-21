@@ -1,7 +1,14 @@
 import streamlit as st
 
 
-def Information(total_negative: int, total_positive: int, item: dict):
+def title_markdown(text):
+    st.sidebar.markdown(
+        f"""
+        <h1 style="font-size: 45px; text-align: center; border-bottom: 1px solid white; margin-bottom: 20px;"> {text} </h1>
+        """, unsafe_allow_html=True
+    )
+
+def Information(total_negative: int, total_positive: int, item: dict, link_video: str):
     
     total_coments = total_negative + total_positive
     likes = item['snippet']['topLevelComment']['snippet']['likeCount']
@@ -10,15 +17,14 @@ def Information(total_negative: int, total_positive: int, item: dict):
         """
         <style>
         .card {
-            width: 190px;
             height: auto !important;
             color: white;
             display: grid;
-            grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
             gap: 5px;
             overflow: visible;
             margin: 0 auto;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
         }
 
         .card .item {
@@ -53,12 +59,12 @@ def Information(total_negative: int, total_positive: int, item: dict):
         }
 
         .quantity {
-        font-size: 25px;
+        font-size: 30px;
         font-weight: 600;
         }
 
         .text {
-        font-size: 12px;
+        font-size: 22px;
         font-family: inherit;
         font-weight: 600;
         }
@@ -78,15 +84,20 @@ def Information(total_negative: int, total_positive: int, item: dict):
         .text--4 {
         color: rgba(220,91,183,1);
         }
-        </style>
         """, unsafe_allow_html=True
     )
 
-    st.sidebar.markdown(
+    st.sidebar.write(
         """
         <h1 style="font-size: 45px; text-align: center; border-bottom: 1px solid white; margin-bottom: 20px;">Information</h1>
         """, unsafe_allow_html=True
     )
+
+    st.sidebar.write(f"""
+        <section style="display: flex; justify-content: center; align-items: center; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; padding: 10px; border-radius: 15px">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/{link_video}" frameborder="0" allowfullscreen></iframe>'
+        </section>""", unsafe_allow_html=True)
+
     st.sidebar.bar_chart({
                 'Total de Comentarios': total_negative + total_positive,
                 'Comentarios Positivos': total_positive,
