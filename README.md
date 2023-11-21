@@ -68,6 +68,6 @@ Streamlit run main.py
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=jmb8q0X2JTc&ab_channel=AlexisVenegas" target="_blank">
-    <img src="https://img.youtube.com/vi/jmb8q0X2JTc/0.jpg" alt="Texto alternativo para la miniatura del video" width="560" height="315">
+    <img src="https://d500.epimg.net/cincodias/imagenes/2018/09/10/lifestyle/1536581598_669477_1536581669_noticia_normal.jpg" alt="Texto alternativo para la miniatura del video" width="560" height="315">
   </a>
 </p>
