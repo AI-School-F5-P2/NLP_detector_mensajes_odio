@@ -7,10 +7,9 @@ from Scrapper.Predict_comments import predict_comments
 from Scrapper.predict import display_data_by_video_id
 from Init.init import change_video
 # from SQL.Connection import *
-from decouple import config
 
 # Clave de la API de YouTube
-api_key = config("AIzaSyC6QYqxFrp9v7_EbC8Bd04Cg1bOBfZvX0M")
+api_key = "AIzaSyC6QYqxFrp9v7_EbC8Bd04Cg1bOBfZvX0M"
 
 def youtube_page(value: str):   
     # Lista de comentarios
