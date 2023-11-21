@@ -67,5 +67,5 @@ Streamlit run main.py
 ```
 
 <p align="center">
-  <iframe width="560" height="315" src="https://youtu.be/jmb8q0X2JTc" frameborder="0" allowfullscreen></iframe>
+  <iframe width="560" height="315" src="https://www.youtube.com/watch?v=jmb8q0X2JTc&ab_channel=AlexisVenegas" frameborder="0" allowfullscreen></iframe>
 </p>
