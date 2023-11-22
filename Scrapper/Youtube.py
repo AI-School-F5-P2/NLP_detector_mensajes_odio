@@ -9,7 +9,7 @@ from SQL.Connection import *
 from decouple import config
 
 # Clave de la API de YouTube
-api_key = config("API_KEY")
+api_key = "AIzaSyC6QYqxFrp9v7_EbC8Bd04Cg1bOBfZvX0M"
 
 def youtube_page(value: str):   
     # Lista de comentarios

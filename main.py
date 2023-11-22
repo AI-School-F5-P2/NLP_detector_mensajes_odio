@@ -1,7 +1,7 @@
 import streamlit as st 
 from Scrapper.predict import predict_page
 from Scrapper.Youtube import youtube_page
-from Init.init import init, init_predict_comments, init_scrapping_css, SIDE_INFO
+from Init.init import init, init_predict_comments, init_scrapping_css
 import regex as re
 
 # FUNCION PARA CREAR LOS ESTILOS Y TITULOS DE LA APP
