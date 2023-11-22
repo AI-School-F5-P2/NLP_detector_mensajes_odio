@@ -14,11 +14,10 @@ def predict_page(value_contents):
     atravez de un componente CardComplement que se encuentra en Components/CardComplement.py
     primero se muestra un spinner mientras se realiza la predicción, luego se muestra el resultado
     '''
-    result = None
     if value_contents:
         # Muestra un spinner mientras se realiza la predicción
         with st.spinner("Prediciendo..."):
-            st.success('Done!')
+            # st.success('Done!')
             result_english = translate_to_english(value_contents)
             result = predict_comments(value_contents)
             #result = make_mood_prediction(result_english)
