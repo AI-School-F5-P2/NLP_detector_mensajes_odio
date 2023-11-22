@@ -18,10 +18,13 @@ def predict_page(value_contents):
     if value_contents:
         # Muestra un spinner mientras se realiza la predicción
         with st.spinner("Prediciendo..."):
+            st.success('Done!')
+            result_english = translate_to_english(value_contents)
             result = predict_comments(value_contents)
+            #result = make_mood_prediction(result_english)
             # result = predict_comments_v2(value_contents)
             if result:
-                CardComplement(value_contents, result[0]["score"], result[0]["label"])
+                CardComplement(result_english, result[0]["score"], result[0]["label"])
             else:
                 st.write("Inserta un comentario...")
     else:
@@ -32,7 +35,7 @@ def get_data_by_video_id(conn, youtube_id):
         cursor = conn.cursor()
         query = """
         SELECT Texto, IsToxic
-        FROM data_comments
+        FROM bawhvsumyg8pry69xiue
         WHERE youtube_id = %s
         """
         cursor.execute(query, (youtube_id,))
@@ -81,6 +84,7 @@ def testing_words(item, df):
     st.sidebar.write(df['Texto'].nunique(), "valores nulos")
 
 def display_data_by_video_id(conn, youtube_id, total_positive, total_negative, item):
+    data = None
     data = get_data_by_video_id(conn, youtube_id)
 
     if data:

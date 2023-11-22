@@ -2,6 +2,7 @@ import streamlit as st
 from Scrapper.predict import predict_page
 from Scrapper.Youtube import youtube_page
 from Init.init import init, init_predict_comments, init_scrapping_css, SIDE_INFO
+import regex as re
 
 # FUNCION PARA CREAR LOS ESTILOS Y TITULOS DE LA APP
 init()
@@ -33,6 +34,9 @@ elif page == "Scrapping":
     init_scrapping_css()
     # TEXT AREA
     value = st.text_area("", height=25, placeholder="Inserta un link de un video de youtube", key="youtube")
+    match = re.search(r'(?<=v=)[\w-]+', value)
+    if match:
+        video_id = match.group()
 
     # BUTTON centramos el button
     button = st.button("Scrappear", key="youtube_button", type="primary", use_container_width=True)
@@ -40,6 +44,6 @@ elif page == "Scrapping":
     if button:
         # predict
         try:
-            youtube_page(value)
+            youtube_page(video_id)
         except:
             st.write("Inserta un link de un video de youtube")

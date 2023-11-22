@@ -3,11 +3,23 @@ from transformers import pipeline
 from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
 from torch.nn import Softmax
 import torch
+from googletrans import Translator
+# from Scrapper.change_model import load_model, predict_toxicity
+
+def translate_to_english(text: str) -> str:
+    try:
+        translator = Translator()
+        translation = translator.translate(text, dest='en')
+        return translation.text
+    except Exception as e:
+        st.error(f"Error en la traducción: {e}")
+        return None
 
 def predict_comments(value_contents):
-    result = None
     if value_contents:
-            classifier = pipeline("text-classification")
+            classifier = pipeline("text-classification", model="nlptown/bert-base-multilingual-uncased-sentiment")
+            # classifier = pipeline("text-classification")
+            # result = classifier(value_contents)
             result = classifier(value_contents)
     return result 
 
@@ -35,6 +47,23 @@ def predict_comments_v2(value_contents):
 
             # Obtener la probabilidad de la clase "toxic" (clase 1)
         toxicity_probability = probs[:, 1].item()
-
+        st.write(toxicity_probability)
         return toxicity_probability
 
+
+
+# def make_mood_prediction(text):
+#     """
+#     Realizamos la predicción
+#     """
+#     model = load_model()
+#     try:
+#         #text = text.get("mood")
+#         prediction = predict_toxicity(model, text)
+#         st.write(prediction)
+#         predict_message = "👹 Es Tóxico" if prediction == 1 else "😇 No es tóxico"
+#         return {"message": f"El mensaje 👉 {text}, {predict_message}"}
+#         response.status_code = status.HTTP_200_OK
+
+#     except Exception as error:
+#         return {"message": f"Hubo un problema, {error}"}

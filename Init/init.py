@@ -51,8 +51,8 @@ def init_predict_comments(link_video: str) -> None:
 
         # IMAGE
         st.write("""
-            <div class="div_container_img" style="display: flex; justify-content: center; align-items: center; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; padding: 10px; border-radius: 15px">
-                <img src="https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_download_software_1/H2x1_NSwitchDS_YouTube_image1280w.jpg" alt="aereolina" width="700" style="margin: 10px 0px; border-radius: 6px;">
+            <div class="div_container_img" style="display: flex; justify-content: center; align-items: center; padding: 10px; border-radius: 15px">
+                <img src="https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_download_software_1/H2x1_NSwitchDS_YouTube_image1280w.jpg" alt="aereolina" width="700" style="box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; margin: 10px 0px; border-radius: 6px;">
             </div>""", unsafe_allow_html=True)
     else:
          # Título de la app                               

@@ -30,9 +30,9 @@ def establish_connection():
         conn = pymysql.connect(
             charset="utf8mb4",
             cursorclass=pymysql.cursors.DictCursor,
-            db=config('DB_NAME', default='airline'),
-            host=config('DB_HOST', default='localhost'),
-            password=config('DB_PASSWORD', default=''),
+            db=config('DB_NAME'),
+            host=config('DB_HOST'),
+            password=config('DB_PASSWORD'),
             read_timeout=timeout,
             port=config('DB_PORT', default='3306', cast=int),
             user=config('DB_USER', default='root'),
@@ -50,7 +50,7 @@ def insert_data(conn, data):
     try:
         cursor = conn.cursor()
         query = """
-        INSERT INTO data_comments (Texto, IsToxic, youtube_id) 
+        INSERT INTO bawhvsumyg8pry69xiue (Texto, IsToxic, youtube_id) 
         VALUES (%s, %s, %s)
         """
 
