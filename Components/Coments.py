@@ -9,18 +9,25 @@ def convert_time(time):
     time = time[2] + "-" + time[1] + "-" + time[0]
     return time
 
-def Card_New(item_json, result):
+def Card_New(item_json, result, text_english):
     
+
     name = item_json['snippet']['topLevelComment']['snippet']['authorDisplayName']
     text = item_json['snippet']['topLevelComment']['snippet']['textDisplay']
     image = item_json['snippet']['topLevelComment']['snippet']['authorProfileImageUrl']
-    result_value = result[0]['label']
     accuracy = result[0]['score']
     accuracy = round(accuracy, 2) * 100
     time = item_json['snippet']['topLevelComment']['snippet']['publishedAt']
     time = convert_time(time)
     link_video = item_json['snippet']['topLevelComment']['snippet']['videoId']
     link_canal_persona = item_json['snippet']['topLevelComment']['snippet']['authorChannelUrl']
+    result_value = result[0]['label']
+    if result_value == "1 star" or result_value == "2 stars" or result_value == "3 stars":
+        result_value = "NEGATIVE"
+    elif result_value == "4 stars" or result_value == "5 stars":
+        result_value = "POSITIVE"
+    else:
+        result_value = "NEUTRAL"
 
     st.markdown(
         """
@@ -105,7 +112,7 @@ def Card_New(item_json, result):
             <div class="Card-comment">
                 <div class="img-content">
                     <a href="{link_canal_persona}" target="_blank" style="cursor: pointer; border: none; ">
-                    <img src="{image}" alt="imagen" class="image_person">
+                        <img src="{image}" alt="imagen" class="image_person">
                     </a>
                 </div>
                 <div class="content_text">
@@ -116,7 +123,7 @@ def Card_New(item_json, result):
                         <p class="from_text">{time}</p>
                     </div>
                     <div class="text">
-                        <p>{text}</p>
+                        <p>{text_english}</p>
                     </div>
                 </div>
             </div>

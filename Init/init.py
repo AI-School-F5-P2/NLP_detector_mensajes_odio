@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 def init() -> None:
     st.set_page_config(
     page_title="Youtube Predict",
@@ -26,12 +27,18 @@ def init() -> None:
             background-attachment: fixed !important;
             background: {background_gradient} !important;
         }}
+        .st-emotion-cache-1v0mbdj > img {{
+            margin-top: 60px !important;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+            border-radius: 15px;
+        }}
+        .st-emotion-cache-16txtl3 {{
+            text-align: center !important;
+        }}
     </style>
     """,
     unsafe_allow_html=True
     )
-
-
 
 def init_predict_comments(link_video: str) -> None:
 
@@ -44,8 +51,8 @@ def init_predict_comments(link_video: str) -> None:
 
         # IMAGE
         st.write("""
-            <div class="div_container_img" style="display: flex; justify-content: center; align-items: center; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; padding: 10px; border-radius: 15px">
-                <img src="https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_download_software_1/H2x1_NSwitchDS_YouTube_image1280w.jpg" alt="aereolina" width="700" style="margin: 10px 0px; border-radius: 6px;">
+            <div class="div_container_img" style="display: flex; justify-content: center; align-items: center; padding: 10px; border-radius: 15px">
+                <img src="https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_download_software_1/H2x1_NSwitchDS_YouTube_image1280w.jpg" alt="aereolina" width="700" style="box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; margin: 10px 0px; border-radius: 6px;">
             </div>""", unsafe_allow_html=True)
     else:
          # Título de la app                               
@@ -97,3 +104,6 @@ def init_scrapping_css():
 def change_video(link_video: str) -> None:
     init_predict_comments(link_video)
     # st.write(f'<iframe width="560" height="315" src="https://www.youtube.com/embed/{link_video}" frameborder="0" allowfullscreen></iframe>', unsafe_allow_html=True)  
+
+
+SIDE_INFO = "Puedes usar nuestro modelo de inteligencia artificial para detectar y combatir el discurso de odio en línea."

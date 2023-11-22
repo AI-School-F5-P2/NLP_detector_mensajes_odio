@@ -12,6 +12,12 @@ def CardComplement(text: str, accuracy: str, label: str):
     accuracy = round(accuracy, 2) * 100
     
     result_value = label
+    if result_value == "1 star" or result_value == "2 stars" or result_value == "3 stars":
+        result_value = "NEGATIVE"
+    elif result_value == "4 stars" or result_value == "5 stars":
+        result_value = "POSITIVE"
+    else:
+        result_value = "NEUTRAL"
     # Cargamos los estilos
     st.markdown(
         """

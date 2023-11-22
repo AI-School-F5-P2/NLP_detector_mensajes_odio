@@ -1,6 +1,6 @@
 import json
 import pymysql
-from decouple import config
+# from decouple import config
 import streamlit as st
 
 # Función para ejecutar un archivo SQL
@@ -30,12 +30,17 @@ def establish_connection():
         conn = pymysql.connect(
             charset="utf8mb4",
             cursorclass=pymysql.cursors.DictCursor,
-            db=config('DB_NAME', default='airline'),
-            host=config('DB_HOST', default='localhost'),
-            password=config('DB_PASSWORD', default=''),
+            # db=config('DB_NAME'),
+            db=st.secrets["DB_NAME"],
+            #host=config('DB_HOST'),
+            host=st.secrets["DB_HOST"],
+            # password=config('DB_PASSWORD'),
+            password=st.secrets["DB_PASSWORD"],
             read_timeout=timeout,
-            port=config('DB_PORT', default='3306', cast=int),
-            user=config('DB_USER', default='root'),
+            # port=config('DB_PORT', default='3306', cast=int),
+            port=st.secrets["DB_PORT"],
+            # user=config('DB_USER', default='root'),
+            user=st.secrets["DB_USER"],
             write_timeout=timeout,
         )
         print("Conexión establecida correctamente")
@@ -50,17 +55,16 @@ def insert_data(conn, data):
     try:
         cursor = conn.cursor()
         query = """
-        INSERT INTO data_comments (Texto, IsToxic) 
-        VALUES (%s, %s)
+        INSERT INTO bawhvsumyg8pry69xiue (Texto, IsToxic, youtube_id) 
+        VALUES (%s, %s, %s)
         """
 
         texto_value = data.get("Texto", "")  # Obtener el valor de "Texto" o un valor predeterminado en caso de que no exista
         is_toxic_value = data.get("IsToxic", "")  # Obtener el valor de "IsToxic" o un valor predeterminado en caso de que no exista
+        youtube_id_value = data.get("youtube_id", "")  # Obtener el valor de "youtube_id" o un valor predeterminado en caso de que no exista
 
-        print("Texto:", texto_value)
-        print("IsToxic:", is_toxic_value)
 
-        cursor.execute(query, (texto_value, is_toxic_value))
+        cursor.execute(query, (texto_value, is_toxic_value, youtube_id_value))
         conn.commit()
     except pymysql.Error as e:
         st.error(f"Error al insertar los datos: {e}")
