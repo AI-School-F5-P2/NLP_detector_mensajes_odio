@@ -6,14 +6,13 @@ import torch
 from googletrans import Translator
 # from Scrapper.change_model import load_model, predict_toxicity
 
-def translate_to_english(text: str) -> str:
+def translate_to_english(text: str):
     try:
         translator = Translator()
         translation = translator.translate(text, dest='en')
         return translation.text
     except Exception as e:
-        st.error(f"Error en la traducción: {e}")
-        return None
+        return text
 
 def predict_comments(value_contents):
     if value_contents:

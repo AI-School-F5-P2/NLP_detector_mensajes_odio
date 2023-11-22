@@ -20,9 +20,7 @@ def predict_page(value_contents):
         with st.spinner("Prediciendo..."):
             # st.success('Done!')
             result_english = translate_to_english(value_contents)
-            st.write(result_english)
             result = predict_comments(value_contents)
-            st.write(result)
             #result = make_mood_prediction(result_english)
             # result = predict_comments_v2(value_contents)
             if result:
