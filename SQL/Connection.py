@@ -1,6 +1,6 @@
 import json
 import pymysql
-from decouple import config
+# from decouple import config
 import streamlit as st
 
 # Función para ejecutar un archivo SQL
@@ -30,12 +30,17 @@ def establish_connection():
         conn = pymysql.connect(
             charset="utf8mb4",
             cursorclass=pymysql.cursors.DictCursor,
-            db=config('DB_NAME'),
-            host=config('DB_HOST'),
-            password=config('DB_PASSWORD'),
+            # db=config('DB_NAME'),
+            db=st.secrets["DB_NAME"],
+            #host=config('DB_HOST'),
+            host=st.secrets["DB_HOST"],
+            # password=config('DB_PASSWORD'),
+            password=st.secrets["DB_PASSWORD"],
             read_timeout=timeout,
-            port=config('DB_PORT', default='3306', cast=int),
-            user=config('DB_USER', default='root'),
+            # port=config('DB_PORT', default='3306', cast=int),
+            port=st.secrets["DB_PORT"],
+            # user=config('DB_USER', default='root'),
+            user=st.secrets["DB_USER"],
             write_timeout=timeout,
         )
         print("Conexión establecida correctamente")
