@@ -4,16 +4,16 @@ from transformers import DistilBertTokenizer, DistilBertForSequenceClassificatio
 from torch.nn import Softmax
 import torch
 from googletrans import Translator
-# from Scrapper.change_model import load_model, predict_toxicity
+import joblib
+import regex as re
+import spacy
+from spacy.tokenizer import Tokenizer
+from spacy.lang.en import English
 
-def translate_to_english(text: str):
-    try:
-        translator = Translator()
-        translation = translator.translate(text, dest='en')
-        return translation.text
-    except Exception as e:
-        return text
+# Instanciamos el modelo
+nlp_english = spacy.load("en_core_web_sm")
 
+# FUNCION QUE SE ENCARGA DE PREDECIR EL COMENTARIO MODELO DE HUGGING FACE
 def predict_comments(value_contents):
     if value_contents:
             classifier = pipeline("text-classification", model="nlptown/bert-base-multilingual-uncased-sentiment")
@@ -22,47 +22,54 @@ def predict_comments(value_contents):
             result = classifier(value_contents)
     return result 
 
-def predict_comments_v2(value_contents):
+# Funcion para cargar el modelo propio
+def modelo_propio(text):
+    loaded_model = joblib.load("C:/Users/Alexis/Desktop/proyectos/NLP_detector_mensajes_odio/Scrapper/modelo_entrenado.joblib")
+    predic = loaded_model.predict([text])
+    if predic == 0:
+        return {"label": "POSITIVE", "score": 0.9999998807907104}
+    else:
+        return {"label": "NEGATIVE", "score": 0.9999998807907104}
 
-        # Cargar el modelo preentrenado y el tokenizador
-        model_name = "distilbert-base-multilingual-cased"
-        model = DistilBertForSequenceClassification.from_pretrained(model_name)
-        tokenizer = DistilBertTokenizer.from_pretrained(model_name)
+# Funcion para traducir el texto
+def translate_to_english(text: str):
+    try:
+        translator = Translator()
+        translation = translator.translate(text, dest='en')
+        return translation.text
+    except Exception as e:
+        return text
 
-        # Agregar una capa de clasificación
-        model.classifier = torch.nn.Linear(in_features=768, out_features=2)
+# Funcion para limpiar el texto
+def limpieza_regex(text):
+  text = str(text).lower() # Convierte el texto a minúsculas
+  text = re.sub('\n', '', text)  # Elimina saltos de línea
+  text = re.sub('\w*\d\w*', '', text)  # Elimina palabras que contienen números
+  text = re.sub('\[|\]', '', text) # Elimina corchetes
+  text = re.sub(r"\@w+|\#w+",'',text)  # Elimina menciones y hashtags de redes sociales
+  text = re.sub('https?://\S+|www\.\S+', '', text)  # Elimina URLs que comiencen con http, https o www
+  text = re.sub('<.*?>+', '', text)  # Elimina etiquetas HTML
+  text = re.sub(r"[^\w\s]",'',text)  # Elimina caracteres no alfanuméricos
+  text = re.sub('\xa0', '', text)  # Elimina el carácter \xa0
+  text = re.sub(' +', ' ', text)  # Reemplaza múltiples espacios por uno solo
+  text = text.strip() # Elimina espacios antes y despues
+  return text
 
-        # Definir la función de softmax
-        softmax = Softmax(dim=1)
+# Funcion para eliminar Stopwords
+def eliminar_stop_words(text):
+    doc = nlp_english(text)
+    tokens = [token.text for token in doc if not token.is_stop]
+    return " ".join(token for token in tokens)
 
-        inputs = tokenizer(value_contents, return_tensors="pt")
+# Funcion para lematizar los tokens
+def lematizar_tokens(text):
+    doc = nlp_english(text)
+    tokens = [token.lemma_ for token in doc]
+    return " ".join(tokens)
 
-        # Realizar la predicción
-        with torch.no_grad():
-                outputs = model(**inputs)
-
-        # Aplicar la función de softmax a las predicciones
-        probs = softmax(outputs.logits)
-
-            # Obtener la probabilidad de la clase "toxic" (clase 1)
-        toxicity_probability = probs[:, 1].item()
-        st.write(toxicity_probability)
-        return toxicity_probability
-
-
-
-# def make_mood_prediction(text):
-#     """
-#     Realizamos la predicción
-#     """
-#     model = load_model()
-#     try:
-#         #text = text.get("mood")
-#         prediction = predict_toxicity(model, text)
-#         st.write(prediction)
-#         predict_message = "👹 Es Tóxico" if prediction == 1 else "😇 No es tóxico"
-#         return {"message": f"El mensaje 👉 {text}, {predict_message}"}
-#         response.status_code = status.HTTP_200_OK
-
-#     except Exception as error:
-#         return {"message": f"Hubo un problema, {error}"}
+# FUNCION QUE SE ENCARGA DE PROCESAR EL TEXTO 
+def process_text(text):
+    text = limpieza_regex(text)
+    text = eliminar_stop_words(text)
+    text = lematizar_tokens(text)
+    return text

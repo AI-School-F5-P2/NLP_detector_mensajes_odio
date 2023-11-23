@@ -60,9 +60,10 @@ def youtube_page(video_id: str):
                 "IsToxic": is_toxic_label,
                 "youtube_id": link_video
                 }
-                connection = establish_connection()
+                # connection = establish_connection()
                 try:
-                    insert_data(connection, data_for_insert)
+                    pass
+                    # insert_data(connection, data_for_insert)
                 except Exception as e:
                     st.write("Error al insertar los datos en la BBDD")
                     st.write("Error: ", e)
@@ -70,8 +71,8 @@ def youtube_page(video_id: str):
             next_page_token = results.get('nextPageToken')
             # llamamos a information y lo acutalizamos con cada comentario nuevo
             if not next_page_token:
-                Information(total_negative, total_positive, item, link_video)
-                display_data_by_video_id(connection, link_video, total_positive, total_negative, item)
+                # Information(total_negative, total_positive, item, link_video)
+                # display_data_by_video_id(connection, link_video, total_positive, total_negative, item)
                 break
     except Exception as e:
         st.write("error al cargar los comentarios")

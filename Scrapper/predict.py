@@ -8,6 +8,7 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from Components.Information import title_markdown
 
+# funcion que se encarga de mostrar el resultado de la predicción
 def predict_page(value_contents):
     '''
     Función que se encarga de mostrar el resultado de la predicción
@@ -15,21 +16,24 @@ def predict_page(value_contents):
     primero se muestra un spinner mientras se realiza la predicción, luego se muestra el resultado
     '''
     result = None
-    if value_contents:
-        # Muestra un spinner mientras se realiza la predicción
-        with st.spinner("Prediciendo..."):
-            # st.success('Done!')
-            result_english = translate_to_english(value_contents)
-            result = predict_comments(value_contents)
-            #result = make_mood_prediction(result_english)
-            # result = predict_comments_v2(value_contents)
-            if result:
-                CardComplement(result_english, result[0]["score"], result[0]["label"])
-            else:
-                st.write("Inserta un comentario...")
-    else:
-        st.write("Inserta un comentario...")
+    try:
+        if value_contents:
+            # Muestra un spinner mientras se realiza la predicción
+            with st.spinner("Prediciendo..."):
+                result_clean = process_text(value_contents)
+                result_english = translate_to_english(result_clean)
+                result_final_predict = predict_comments(result_english)
+                #result_final_predict = modelo_propio(result_english)
+                if result_final_predict:
+                    CardComplement(result_english, result_final_predict[0]["score"], result_final_predict[0]["label"])
+                else:
+                    st.write("Inserta un comentario...")
+        else:
+            st.write("Inserta un comentario...")
+    except Exception as e:
+        st.error(f"Error al realizar la predicción: {e}")
 
+# funcion que se encarga de mostrar el resultado de la predicción
 def get_data_by_video_id(conn, youtube_id):
     try:
         cursor = conn.cursor()
@@ -46,6 +50,9 @@ def get_data_by_video_id(conn, youtube_id):
     finally:
         cursor.close()
 
+
+
+# distintas funciones para mostrar los datos
 def process_to_pd(comments_df):
     text = comments_df['Texto'].values 
     # title_markdown("Relevant Columns")
@@ -57,6 +64,7 @@ def process_to_pd(comments_df):
     # 
     st.sidebar.pyplot()
 
+# grafica de circulo 
 def grafic_circle(total_negative, total_positive):
    
     # Crear un DataFrame para la gráfica de pastel
@@ -70,7 +78,7 @@ def grafic_circle(total_negative, total_positive):
     # Mostrar la gráfica en Streamlit
     st.sidebar.pyplot(fig)
 
-
+# distintas funciones para mostrar los datos
 def testing_words(item, df):
     st.sidebar.write(df.duplicated().sum(), "duplicados")
     st.sidebar.write(df.shape, "filas y columnas")
@@ -83,6 +91,7 @@ def testing_words(item, df):
     st.sidebar.write(df['Texto'].value_counts(), "valores nulos")
     st.sidebar.write(df['Texto'].nunique(), "valores nulos")
 
+# funcion que se encarga de mostrar el resultado de la predicción
 def display_data_by_video_id(conn, youtube_id, total_positive, total_negative, item):
     data = None
     data = get_data_by_video_id(conn, youtube_id)

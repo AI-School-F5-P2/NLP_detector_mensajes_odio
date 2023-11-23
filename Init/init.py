@@ -25,7 +25,7 @@ def init() -> None:
             background-size: cover !important;
             background-repeat: no-repeat !important;
             background-attachment: fixed !important;
-            background: {background_gradient} !important;
+            transition: 2s;
         }}
         .st-emotion-cache-1v0mbdj > img {{
             margin-top: 60px !important;

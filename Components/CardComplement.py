@@ -18,6 +18,37 @@ def CardComplement(text: str, accuracy: str, label: str):
         result_value = "POSITIVE"
     else:
         result_value = "NEUTRAL"
+
+    if result_value == "NEGATIVE":
+        st.markdown(
+        f"""
+        
+        <style>
+            .st-emotion-cache-fg4pbf {{
+            background-color: #d11414 !important;
+            background: linear-gradient(to bottom, #ff00009e, #abcdefb3);
+            background-image: none !important;
+            transition: 2s !important;
+            }}
+        </style>
+        """,
+        unsafe_allow_html=True
+        )
+    else:
+             st.markdown(
+    f"""
+    
+    <style>
+        .st-emotion-cache-fg4pbf {{
+           background-color: #0000ffd4 !important;
+            background: linear-gradient(to bottom, #ff00009e, #abcdefb3);
+            background-image: none !important;
+            transition: 2s !important;
+        }}
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
     # Cargamos los estilos
     st.markdown(
         """
@@ -27,7 +58,7 @@ def CardComplement(text: str, accuracy: str, label: str):
             height: 100%;
             padding: 11px;
             border-radius: 4px;
-            background: #ffffff1c;
+            background: #ffffff;
             box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
             margin-top: 21px;
         }
@@ -51,6 +82,7 @@ def CardComplement(text: str, accuracy: str, label: str):
             height: 75px;
         }
         .name_username {
+            visibility: hidden;
             flex-direction: row;
             height: auto !important;
             display: flex;
@@ -76,13 +108,17 @@ def CardComplement(text: str, accuracy: str, label: str):
             position: absolute;
             right: 14px;
             top: 1px;
+            color: white;
             background: #0000ff4d !important;
             border-radius: 10px 10px 0px 0px;
             display: flex;
             justify-content: center;
+            border: 1px solid #0000ff4d;
         }
         .prediction_negative {
             width: 133px;
+            border: 1px solid #0000ff4d;
+            color: white;
             height: 20px;
             position: absolute;
             right: 14px;
@@ -112,7 +148,7 @@ def CardComplement(text: str, accuracy: str, label: str):
                         <p class="from_text">hace 2 dias</p>
                     </div>
                     <div class="text">
-                        <p>{text}</p>
+                        <p style="font-size: 25px; ">{text}</p>
                     </div>
                 </div>
             </div>
